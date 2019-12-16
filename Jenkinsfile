@@ -93,6 +93,7 @@ pipeline {
                     } 
                 }
                 stage("Smoke Test") {
+			agent { label 'windows' }
                       parallel {
                         stage("Web Smoke Test") {
                          steps {
@@ -137,6 +138,7 @@ pipeline {
 
 
                 stage("Regression Test") {
+			agent { label 'windows' }
                      parallel {
                       stage("Web Regression Test") {
                         steps {
