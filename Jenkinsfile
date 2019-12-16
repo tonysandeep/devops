@@ -92,29 +92,33 @@ pipeline {
                         ])
                     } 
                 }
-                stage("Web Smoke Test") {
-                    steps {
-                        dir('bdd') {
-                        echo 'Testing Stage'
-                        bat 'mvn test -Dcucumber.option="--tags @smoke'
-                        bat 'copy target\\cucumber-reports\\Cucumber.json target\\cucumber-reports\\Cucumber-smoke.json'
+                stage("Smoke Test") {
+                      parallel {
+                        stage("Web Smoke Test") {
+                         steps {
+                           dir('bdd') {
+                          echo 'Testing Stage'
+                          bat 'mvn test -Dcucumber.option="--tags @smoke"'
+                          bat 'copy target\\cucumber-reports\\Cucumber.json target\\cucumber-reports\\Cucumber-smoke.json'
                         }
                     } 
                 }
-                stage("API Smoke Test") {
-                    steps {
+                    stage("API Smoke Test") {
+                      steps {
                         dir('api') {
                         echo 'Testing Stage'
-                        bat 'mvn clean test -Dcucumber.option="--tags @smoke'
-                        //bat 'copy target\\cucumber-reports\\Cucumber.json target\\cucumber-reports\\Cucumber-smoke.json'
+                        bat 'mvn clean test -Dcucumber.option="--tags @smoke"'
+                         bat 'copy target\\surefire-reports\\com.virtusa.qa.api.product.json D:\\workspace\\workspace\\addressbook\\bdd\\target\\cucumber-reports\\API-smoke.json'
                         }
                     } 
                 }
+              }
+             }
                 /*stage("Web Feature Test") {
                     steps {
                         dir('web') {
                         echo 'Testing Stage'
-                        bat 'mvn test -Dcucumber.option="--tags @feature'
+                        bat 'mvn test -Dcucumber.option="--tags @feature"'
                         bat 'copy target\\cucumber-reports\\Cucumber.json target\\cucumber-reports\\Cucumber-sanity.json'
                         bat 'del /f target\\cucumber-reports\\Cucumber.json'
                         }
@@ -124,18 +128,23 @@ pipeline {
                     steps {
                         dir('api') {
                         echo 'Testing Stage'
-                        bat 'mvn test -Dcucumber.option="--tags @feature'
-                        bat 'copy target\\cucumber-reports\\Cucumber.json target\\cucumber-reports\\Cucumber-sanity.json'
+                        bat 'mvn test -Dcucumber.option="--tags @feature"'
+                        bat 'copy target\\surefire-reports\\com.virtusa.qa.api.product.json D:\\workspace\\workspace\\addressbook\\bdd\\target\\cucumber-reports\\API-feature.json'
                         bat 'del /f target\\cucumber-reports\\Cucumber.json'
                         }
                     }
                 }*/
+
+
                 stage("Regression Test") {
-                    steps {
+                     parallel {
+                      stage("Web Regression Test") {
+                        steps {
                         dir('bdd') {
                         echo 'Testing Stage'
                         bat 'mvn test'
                         bat 'copy target\\cucumber-reports\\Cucumber.json target\\cucumber-reports\\Cucumber-regression.json'
+		        bat 'del /f target\\cucumber-reports\\Cucumber.json'
                         }
                     }
                 }
@@ -144,10 +153,13 @@ pipeline {
                         dir('api') {
                         echo 'Testing Stage'
                         bat 'mvn clean test'
-                        //bat 'copy target\\cucumber-reports\\Cucumber.json target\\cucumber-reports\\Cucumber-regression.json'
+                        bat 'copy target\\surefire-reports\\com.virtusa.qa.api.product.json D:\\workspace\\workspace\\addressbook\\bdd\\target\\cucumber-reports\\API-Regression.json'
+						bat 'del /f target\\surefire-reports\\com.virtusa.qa.api.product.json'
                         }
                     }
                 }
+              }
+             }
                 /*stage("Sanity Test") {
                     steps {
                         dir('bdd') {
@@ -161,6 +173,7 @@ pipeline {
                 
                 stage("Cucumber-report view") {
                     steps {
+					    
                         cucumber buildStatus: 'UNSTABLE',
                             failedFeaturesNumber: 1,
                             failedScenariosNumber: 1,
@@ -170,7 +183,7 @@ pipeline {
                                     [key: 'Commit', value: '<a href="${GERRIT_CHANGE_URL}">${GERRIT_PATCHSET_REVISION}</a>'],
                                     [key: 'Submitter', value: '${GERRIT_PATCHSET_UPLOADER_NAME}']
                             ],
-                            fileIncludePattern: '**/*.json',
+                            fileIncludePattern: '**\*.json',
                             sortingMethod: 'ALPHABETICAL',
                             trendsLimit: 100   
                     }
