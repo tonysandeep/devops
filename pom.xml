@@ -204,6 +204,11 @@
 					</excludes>
 				</configuration>
 			</plugin>
+				<plugin>
+  			  <groupId>maven</groupId>
+    			<artifactId>maven-scm-plugin</artifactId>
+    			<version>1.6.1</version>
+			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
