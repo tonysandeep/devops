@@ -4,7 +4,7 @@
     <groupId>com.edurekademo.tutorial</groupId>
     <artifactId>addressbook</artifactId>
     <packaging>war</packaging>
-    <version>1.0-RELEASE</version>
+    <version>1.0-SNAPSHOT</version>
     <name>Vaadin Addressbook example</name>	 
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,10 +56,10 @@
     </pluginRepositories>
 
 	<scm>
-	   <connection>scm:git:https://github.com/tonysandeep/Liquibase.git</connection>
-	   <developerConnection>scm:git:https://github.com/tonysandeep/Liquibase.git</developerConnection>
-	   <url>https://github.com/tonysandeep/Liquibase.git</url>
-       <tag>addressbook-1.0-RELEASE</tag>
+	   <connection>scm:git:https://github.com/tonysandeep/devops.git</connection>
+	   <developerConnection>scm:git:https://github.com/tonysandeep/devops.git</developerConnection>
+	   <url>https://github.com/tonysandeep/devops.git</url>
+       <tag>addressbook-2.0-RELEASE</tag>
     </scm>
     <dependencies>
         <dependency>
@@ -541,12 +541,12 @@
 				<snapshotRepository>
 		            <id>maven-snapshots</id>
 					<name>maven-snapshots</name>
-				    <url>http://10.62.125.4:8084/repository/maven-snapshots/</url>
+				    <url>http://35.188.251.249:8084/repository/maven-snapshots/</url>
 				</snapshotRepository>
 				<repository>
 				    <id>maven-releases</id>
 				    <name>maven-releases</name>
-				    <url>http://10.62.125.4:8084/repository/maven-releases/</url>
+				    <url>http://35.188.251.249:8084/repository/maven-releases/</url>
 				</repository>
 		</distributionManagement>
 </project>
