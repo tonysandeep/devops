@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.edurekademo.tutorial</groupId>
     <artifactId>addressbook</artifactId>
@@ -16,6 +17,12 @@
     <sonar.coverage.jacoco.xmlReportPaths>target/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
             <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
     </properties>
+	<scm>
+           <connection>scm:git:https://github.com/tonysandeep/devops.git</connection>
+           <developerConnection>scm:git:https://github.com/tonysandeep/devops.git</developerConnection>
+           <url>https://github.com/tonysandeep/devops.git</url>
+       <tag>release-2.0</tag>
+	</scm>
    <repositories>
         <repository>
 		
@@ -34,10 +41,12 @@
             <id>vaadin-snapshots</id>
             <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
             <releases>
-                <enabled>true</enabled>
+                 <enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
+                   <enabled>true</enabled>
+					<updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
@@ -47,20 +56,17 @@
             <id>vaadin-snapshots</id>
             <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
-	<scm>
-	   <connection>scm:git:https://github.com/tonysandeep/devops.git</connection>
-	   <developerConnection>scm:git:https://github.com/tonysandeep/devops.git</developerConnection>
-	   <url>https://github.com/tonysandeep/devops.git</url>
-       <tag>release-2.0</tag>
-    </scm>
+
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -161,14 +167,9 @@
 			<artifactId>xml-security-impl</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-release-plugin</artifactId>
-			<version>2.5.3</version>
-		</dependency>
 
-	</dependencies>
+
+		</dependencies>
 
     <build>
         <plugins>
@@ -203,11 +204,6 @@
 						<exclude>**/*Abstract*Test.java</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-				<plugin>
-  			  <groupId>maven</groupId>
-    			<artifactId>maven-scm-plugin</artifactId>
-    			<version>1.6.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -357,7 +353,6 @@
                                     <artifactId>maven-project-info-reports-plugin</artifactId>
                                     <version>2.7</version>
                                 </plugin>
-								
                                 <plugin>
                                     <groupId>org.apache.maven.plugins</groupId>
                                     <artifactId>maven-checkstyle-plugin</artifactId>
@@ -539,45 +534,17 @@
                 </plugins>
             </reporting>
         </profile>
-	 
-       <profile>
-	  <id>releases</id>
-		  <build>
-		     <plugins>
-		        <plugin>
-		           <groupId>org.sonatype.plugins</groupId>
-		           <artifactId>nexus-staging-maven-plugin</artifactId>
-		           <version>1.5.1</version>
-	           <executions>
-        	      <execution>
-                	 <id>default-deploy</id>
-	                 <phase>deploy</phase>
-        	         <goals>
-                	    <goal>deploy</goal>
-	                 </goals>
-        	      </execution>
-	           </executions>
-        	   <configuration>
-	              <serverId>maven-releases</serverId>
-        	      <nexusUrl>http://35.245.18.194:8084/</nexusUrl>
-	              <skipStaging>true</skipStaging>
-        	   </configuration>
-	        </plugin>
-     		</plugins>
-	  </build>
-	</profile>
-</profiles>
-                        <distributionManagement>
-			    <snapshotRepository>
-		            <id>maven-snapshots</id>
-			    <name>maven-snapshots</name>
-			    <url>http://35.245.18.194:8084/repository/maven-snapshots/</url>
-		        </snapshotRepository>
-				    <repository>
-		            <id>maven-releases</id>
-			    <name>maven-releases</name>
-			    <url>http://35.245.18.194:8084/repository/maven-releases/</url>
-				        </repository>
-		</distributionManagement>
-	
+    </profiles>
+		<distributionManagement>
+                        <snapshotRepository>
+                            <id>maven-snapshots</id>
+                            <name>maven-snapshots</name>
+                            <url>http://35.188.251.249:8084/repository/maven-snapshots/</url>
+                        </snapshotRepository>
+                        <repository>
+                            <id>maven-releases</id>
+                            <name>maven-releases</name>
+                            <url>http://35.188.251.249:8084/repository/maven-releases/</url>
+                        </repository>
+        </distributionManagement>
 </project>
