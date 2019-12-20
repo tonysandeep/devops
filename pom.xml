@@ -159,6 +159,12 @@
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.9.4</version>
 		</dependency>
+	    	<dependency>
+		 <groupId>org.apache.maven.plugins</groupId>
+  		<artifactId>maven-release-plugin</artifactId>
+  		<version>3.0.0-M1</version>
+  		<type>maven-plugin</type>
+	    </dependency>
 
 		<!-- XML -->
 		<dependency>
